@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        if (!window.location.pathname.endsWith("/")) {
+            window.location = window.location + "/"
+        }
+    </script>
+
+    <link rel="icon" type="image/jpg" href="favicon.ico">
+    <title>Street Trees Data Explorer</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Find a great spot to cool streets with trees.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://sheetdb.io/api/js"></script>
+    <script src='https://npmcdn.com/csv2geojson@latest/csv2geojson.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.3.0/mapbox-gl-draw.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css' rel='stylesheet' />
+    <!-- Load the `mapbox-gl-geocoder` plugin. -->
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
+        type="text/css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta property="og:title" content="Street Trees Data Explorer" />
+    <meta property="og:description" content="Find a great spot to cool streets with trees." />
+    <meta property="og:url" content="https://interactive.wearepossible.org/street-trees/" />
+    <meta property="og:image" content="https://interactive.wearepossible.org/street-trees/og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="627" />
+    <meta property="og:type" content="website" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z0SCYTEGDD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-Z0SCYTEGDD');
+    </script>
+</head>
+
+<body>
+    <div id="banner" onclick="map.flyTo({ center: [-0.081846, 51.54323], zoom: 17 })">
+        <p>🌳 <span id="bannertext">Check out our permanent parklet on Ardleigh Road in Dalston, London</span> 🌳</p>
+    </div>
+    <div id="header">
+        <a id="null" href="http://wearepossible.org" target="_blank"><img id='logo' alt="Possible logo"
+                src="logo.png"></a>
+        <h1>Street Trees Data Explorer</h1>
+        <div id="intro" class="paras">
+            <p><strong>Use this map to find a spot you think would be ideal for a new parklet</strong> - a car parking
+                space that could be transformed into something for people to enjoy.</p>
+            <p>Where could a parklet be installed to improve access to green space and give streets back to
+                people and nature? Click on the map to choose a location, and explore the data with the buttons below.
+            </p>
+        </div>
+    </div>
+    <div id='main'>
+        <div id='background'>
+            <div id='map'>
+                <script src=map.js></script>
+            </div>
+            <div id='legend'>
+                Legend:
+                <br />
+                <img class='fade-in-image' id='pparking' alt="key showing public greenspace colour"
+                    src="public_greenspace.svg" style='display: block'>
+                <img class='fade-in-image' id='no2_mean' alt="key showing access to green space colours"
+                    src="private_greenspace.svg">
+                <img class='fade-in-image' id='uhi_max' alt="key showing index of multiple deprivation colours"
+                    src="imd.svg">
+                <img class='fade-in-image' id='IMDscore' alt="key showing cars per person colours"
+                    src="carsperperson.svg">
+            </div>
+            <div id='selector'>
+                Select a layer:
+                <select name="layers" id="layer-selector">
+                    <option>Loading...</option>
+                </select>
+            </div>
+        </div>
+        <div id="explanation" class="paras">
+            <p>We’ve created this map to help people learn more about the areas they live in - from which communities
+                have the least access to green space to which areas experience high levels of social deprivation.</p>
+            <p>The controls below the map allow you to jump to specific cities, as well as switch between seeing public
+                green space, access to public and private green space, deprivation levels, and car ownership per
+                household.
+            </p>
+            <p>Picked the perfect location? Great - submit it to our database, <a
+                    href="https://action.wearepossible.org/page/110835/action/1?locale=en-GB" target="_blank">write to
+                    your councillor</a>
+                to show your support for parklets, and then <a href="https://www.wearepossible.org/parklets#designer"
+                    target="_blank">design a parklet to put there</a>.</p>
+        </div>
+        <div id='methodology' class="paras">
+            <h3>Sources and Methodology</h3>
+            <p><strong>Public Green Space</strong> data comes from the <a
+                    href="https://www.ordnancesurvey.co.uk/business-government/products/open-map-greenspace"
+                    target="_blank">Ordnance
+                    Survey Open Green Space dataset</a> (April 2021), with golf courses, allotments, and other
+                semi-private green space removed.</p>
+            <p><strong>Access to Green Space</strong> data comes from the <a
+                    href="https://www.ons.gov.uk/economy/environmentalaccounts/datasets/accesstogardensandpublicgreenspaceingreatbritain"
+                    target="_blank">Office
+                    for National Statistics "Access to gardens and public green space" dataset</a> (April 2020).</p>
+            <p><strong>Index of Multiple Deprivation</strong> data comes from the <a
+                    href="https://data.cdrc.ac.uk/dataset/index-multiple-deprivation-imd" target="_blank">Consumer Data
+                    Research
+                    Centre's IMD dataset</a> (2019), showing relative deprivation across the country in deciles.</p>
+            <p><strong>Cars Per Household</strong> data comes from the <a
+                    href="https://www.gov.uk/government/statistical-data-sets/all-vehicles-veh01#licensed-vehicles"
+                    target="_blank">Department
+                    for Transport's VEH0104 dataset</a> (Dec 2020), which consists of licensed vehicles by body type and
+                region, including per head of population.</p>
+            <p>Code for this website can be found on <a href="https://github.com/wearepossible/parklet-plotter"
+                    target="_blank">Github</a>. For more questions, email <a href="mailto:hello@wearepossible.org"
+                    target="_blank">hello@wearepossible.org</a>.</p>
+        </div>
+        <ul class="share-buttons">
+            <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwearepossible.github.io%2Fparklet-plotter%2F&quote=Find%20the%20perfect%20place%20for%20a%20parklet"
+                    title="Share on Facebook" target="_blank"><img alt="Share on Facebook"
+                        src="images/simple_icons_black/Facebook.png" /></a></li>
+            <li><a href="https://twitter.com/intent/tweet?source=https%3A%2F%2Fwearepossible.github.io%2Fparklet-plotter%2F&text=Find%20the%20perfect%20place%20for%20a%20parklet:%20https%3A%2F%2Fwearepossible.github.io%2Fparklet-plotter%2F&via=_wearepossible"
+                    target="_blank" title="Tweet"><img alt="Tweet" src="images/simple_icons_black/Twitter.png" /></a>
+            </li>
+            <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fwearepossible.github.io%2Fparklet-plotter%2F&title=Find%20the%20perfect%20place%20for%20a%20parklet&summary=Use%20this%20map%20to%20find%20a%20location%20where%20you%20could%20install%20a%20tiny%20park%20in%20a%20parking%20space.&source=https%3A%2F%2Fwearepossible.github.io%2Fparklet-plotter%2F"
+                    target="_blank" title="Share on LinkedIn"><img alt="Share on LinkedIn"
+                        src="images/simple_icons_black/LinkedIn.png" /></a></li>
+            <li><a href="mailto:?subject=Find%20the%20perfect%20place%20for%20a%20parklet&body=Use%20this%20map%20to%20find%20a%20location%20where%20you%20could%20install%20a%20tiny%20park%20in%20a%20parking%20space.:%20https%3A%2F%2Fwearepossible.github.io%2Fparklet-plotter%2F"
+                    target="_blank" title="Send email"><img alt="Send email"
+                        src="images/simple_icons_black/Email.png" /></a></li>
+        </ul>
+    </div>
+    <div id='footer'>
+        <nav aria-label="Footer" class="Footer-nav" data-content-field="navigation"><a class="Footer-nav-item"
+                href="https://wearepossible.org/careers" target="_blank">Careers</a><a class="Footer-nav-item"
+                href="https://www.wearepossible.org/contact" target="_blank">Contact</a><a class="Footer-nav-item"
+                href="https://www.wearepossible.org/findstuff" target="_blank">Search</a><a class="Footer-nav-item"
+                href="https://www.wearepossible.org/media" target="_blank">Media</a><a class="Footer-nav-item"
+                href="https://www.wearepossible.org/legalcookies" target="_blank">Legal/Cookies</a></nav>
+    </div>
+</body>
+
+</html>
