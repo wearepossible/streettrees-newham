@@ -44,6 +44,8 @@ fetch(layersUrl)
             option.textContent = layers[layer].web_title;
             layerSelector.appendChild(option);
         }
+
+        layerChange(Object.keys(layers)[0]); // Set the default layer to the first one
     })
     .catch(error => console.error('Error loading layers:', error));
 
@@ -51,8 +53,8 @@ fetch(layersUrl)
 var map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/wearepossible/cm9bgnnoa004601quh5e8a558', // style URL
-    center: [-0.12, 51.51], // starting position [lng, lat]
-    zoom: 9 // starting zoom
+    center: [-0.12, 51.49], // starting position [lng, lat]
+    zoom: 9.2 // starting zoom
 });
 
 // Add the search control to the map.
@@ -72,19 +74,14 @@ const layerChange = (chosenLayer) => {
     // Turn off all layers
     for (let layer of Object.keys(layers)) {
         map.setLayoutProperty(layer, 'visibility', 'none');
-        //document.getElementById(layer).style.display = "none";
-        //document.getElementById(`btn-${layer}`).style.background = "#BF0978";
-        //document.getElementById(`btn-${layer}`).style.color = "#ffffff";
-        //document.getElementById(`btn-${layer}`).style.outline = "none";
     }
 
     // Turn on the layer you want
     map.setLayoutProperty(chosenLayer, 'visibility', 'visible');
-    //document.getElementById(chosenLayer).style.display = "block";
-    //document.getElementById(`btn-${chosenLayer}`).style.background = "#ffffff";
-    //document.getElementById(`btn-${chosenLayer}`).style.color = "#BF0978";
-    //document.getElementById(`btn-${chosenLayer}`).style.outline = "2px solid #BF0978";
 
+    // Add the description and the source
+    document.getElementById('layer-desc').innerHTML = layers[chosenLayer].web_desc;
+    document.getElementById('layer-source').innerHTML = layers[chosenLayer].web_source;
 }
 
 // Create variables to hold the details of the location

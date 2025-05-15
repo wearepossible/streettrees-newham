@@ -20,7 +20,7 @@ h1 {
 
 h3 {
     font-size: 120%;
-    margin-top: 48px;
+    margin: 40px auto 0px auto;
 }
 
 p {
@@ -30,6 +30,12 @@ p {
 a {
     color: #BF0978;
     text-decoration: none;
+}
+
+select {
+    font-family: 'Poppins', sans-serif;
+    font-size: 95%;
+    margin-top: 10px;
 }
 
 #background {
@@ -72,7 +78,6 @@ a {
 
 .paras {
     margin: 32px auto;
-    text-align: center;
     max-width: 65ch;
     width: 90%;
 }
@@ -87,7 +92,11 @@ a {
 
 #selector {
     margin: 5px auto;
-    text-align: center;
+    max-width: 65ch;
+}
+
+#selector h3 {
+    margin: 30px auto 0px auto;
 }
 
 #buttons * {
@@ -99,14 +108,14 @@ a {
     width: 90%;
     max-width: 300px;
     height: auto;
-    margin: 10px auto 0px auto;
+    margin: 20px auto 0px auto;
     text-align: center;
 }
 
 #legend img {
     width: 100%;
     height: auto;
-    display: none;
+    display: block;
     padding-top: 8px;
 }
 
