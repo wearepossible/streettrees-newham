@@ -84,8 +84,10 @@ const layerChange = (chosenLayer) => {
     document.getElementById('layer-source').innerHTML = layers[chosenLayer].web_source;
 
     if (chosenLayer == 'tree_cover') {
-        // Set zoom to 13, keep current location
-        map.flyTo({ zoom: 13 });
+        // Set zoom to 13 if it's lower than that, keep current location
+        if (map.getZoom() < 13) {
+            map.flyTo({ center: map.getCenter(), zoom: 13 });
+        }
     }
 }
 
