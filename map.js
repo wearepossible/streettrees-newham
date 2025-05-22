@@ -82,6 +82,11 @@ const layerChange = (chosenLayer) => {
     // Add the description and the source
     document.getElementById('layer-desc').innerHTML = layers[chosenLayer].web_desc;
     document.getElementById('layer-source').innerHTML = layers[chosenLayer].web_source;
+
+    if (chosenLayer == 'tree_cover') {
+        // Set zoom to 13, keep current location
+        map.flyTo({ zoom: 13 });
+    }
 }
 
 // Create variables to hold the details of the location
