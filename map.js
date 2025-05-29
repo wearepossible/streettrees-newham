@@ -46,6 +46,29 @@ fetch(layersUrl)
         }
 
         layerChange(Object.keys(layers)[0]); // Set the default layer to the first one
+
+        // Activate collapsible button
+        document.getElementsByClassName("collapsible")[0].addEventListener("click", function () {
+
+            // Toggle the active class to change the style
+            this.classList.toggle("active");
+            let content = this.nextElementSibling;
+
+            // Toggle the display of the content
+            if (content.style.display === "block") {
+            content.style.display = "none";
+            } else {
+            content.style.display = "block";
+            }
+
+            // Change text in methodbtn id button
+            const methodBtn = document.getElementById("methodbtn");
+            if (methodBtn.innerHTML === "+ Show methodology") {
+                methodBtn.innerHTML = "- Hide methodology";
+            } else {
+                methodBtn.innerHTML = "+ Show methodology";
+            }
+        });
     })
     .catch(error => console.error('Error loading layers:', error));
 
@@ -98,7 +121,7 @@ const layerChange = (chosenLayer) => {
 // Create variables to hold the details of the location
 let locID, loc, locLat, locLng;
 
-// Click to place a parklet
+// Click to zoom to a location
 map.on('click', function (e) {
 
     // Save location of click
