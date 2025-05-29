@@ -150,6 +150,11 @@ select {
     margin: 0 10px;
 }
 
+#legend #legend-img {
+    width: 300px;
+    display: block;
+}
+
 .fade-in-image {
     animation: fadeIn 0.5s;
     -webkit-animation: fadeIn 0.5s;

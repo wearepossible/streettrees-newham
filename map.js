@@ -94,17 +94,19 @@ map.addControl(new mapboxgl.NavigationControl());
 // Function to switch layers
 const layerChange = (chosenLayer) => {
 
-    // Turn off all layers
-    for (let layer of Object.keys(layers)) {
-        map.setLayoutProperty(layer, 'visibility', 'none');
-    }
-
     // Turn on the layer you want
     map.setLayoutProperty(chosenLayer, 'visibility', 'visible');
+    
+    // Turn off all other layers
+    for (let layer of Object.keys(layers)) {
+        if (layer === chosenLayer) continue; // Skip the chosen layer
+        map.setLayoutProperty(layer, 'visibility', 'none'); // Hide all other layers
+    }
 
     // Change the legend of the map to the chosen layer
-    const legend = document.getElementById('legend');
-    legend.innerHTML = `<img src="legend/${chosenLayer}.svg" class='fade-in-image' alt="${layers[chosenLayer].web_title} legend" />`;
+    const legendImg = document.getElementById('legend-img');
+    legendImg.src = `legend/${chosenLayer}.svg`;
+    legendImg.alt = `${layers[chosenLayer].web_title} legend`;
 
     // Add the description and the source
     document.getElementById('layer-desc').innerHTML = layers[chosenLayer].web_desc;
