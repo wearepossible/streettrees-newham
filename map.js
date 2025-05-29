@@ -104,7 +104,7 @@ const layerChange = (chosenLayer) => {
 
     // Change the legend of the map to the chosen layer
     const legend = document.getElementById('legend');
-    legend.innerHTML = `<img src="legend/${chosenLayer}.svg" alt="${layers[chosenLayer].web_title} legend" />`;
+    legend.innerHTML = `<img src="legend/${chosenLayer}.svg" class='fade-in-image' alt="${layers[chosenLayer].web_title} legend" />`;
 
     // Add the description and the source
     document.getElementById('layer-desc').innerHTML = layers[chosenLayer].web_desc;
