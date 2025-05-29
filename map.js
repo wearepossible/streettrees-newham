@@ -79,6 +79,10 @@ const layerChange = (chosenLayer) => {
     // Turn on the layer you want
     map.setLayoutProperty(chosenLayer, 'visibility', 'visible');
 
+    // Change the legend of the map to the chosen layer
+    const legend = document.getElementById('legend');
+    legend.innerHTML = `<img src="legend/${chosenLayer}.svg" alt="${layers[chosenLayer].web_title} legend" />`;
+
     // Add the description and the source
     document.getElementById('layer-desc').innerHTML = layers[chosenLayer].web_desc;
     document.getElementById('layer-source').innerHTML = layers[chosenLayer].web_source;
