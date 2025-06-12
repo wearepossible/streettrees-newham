@@ -88,6 +88,8 @@ map.addControl(
     })
 );
 
+map.setLayoutProperty('newham-highways', 'visibility', 'visible');
+
 // Add navigation controls
 map.addControl(new mapboxgl.NavigationControl());
 
