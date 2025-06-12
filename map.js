@@ -69,6 +69,8 @@ fetch(layersUrl)
                 methodBtn.innerHTML = "+ Show methodology";
             }
         });
+
+        map.setLayoutProperty('newham-highways', 'visibility', 'visible');
     })
     .catch(error => console.error('Error loading layers:', error));
 
@@ -76,8 +78,8 @@ fetch(layersUrl)
 var map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/wearepossible/cm9bgnnoa004601quh5e8a558', // style URL
-    center: [-0.12, 51.49], // starting position [lng, lat]
-    zoom: 9.2 // starting zoom
+    center: [-0.037, 51.528], // starting position [lng, lat]
+    zoom: 11 // starting zoom
 });
 
 // Add the search control to the map.
@@ -87,8 +89,6 @@ map.addControl(
         mapboxgl: mapboxgl
     })
 );
-
-map.setLayoutProperty('newham-highways', 'visibility', 'visible');
 
 // Add navigation controls
 map.addControl(new mapboxgl.NavigationControl());
