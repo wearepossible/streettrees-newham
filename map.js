@@ -79,7 +79,7 @@ var map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/wearepossible/cm9bgnnoa004601quh5e8a558', // style URL
     center: [-0.037, 51.528], // starting position [lng, lat]
-    zoom: 11 // starting zoom
+    zoom: 12 // starting zoom
 });
 
 // Add the search control to the map.
@@ -129,8 +129,10 @@ let locID, loc, locLat, locLng;
 map.on('click', function (e) {
 
     // Save location of click
-    locLat = e.lngLat.lat.toFixed(5);
-    locLng = e.lngLat.lng.toFixed(5);
+    let locLat = e.lngLat.lat.toFixed(5);
+    let locLng = e.lngLat.lng.toFixed(5);
+
+    console.log(`Clicked location: ${locLat}, ${locLng}`);
 
     // Zoom to location
     map.flyTo({ center: [locLng, locLat], zoom: 12 });
