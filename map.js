@@ -132,8 +132,6 @@ map.on('click', function (e) {
     let locLat = e.lngLat.lat.toFixed(5);
     let locLng = e.lngLat.lng.toFixed(5);
 
-    console.log(`Clicked location: ${locLat}, ${locLng}`);
-
     // Zoom to location
     map.flyTo({ center: [locLng, locLat], zoom: 12 });
 });
