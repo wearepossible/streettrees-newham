@@ -128,10 +128,6 @@ let locID, loc, locLat, locLng;
 // Click to zoom to a location
 map.on('click', function (e) {
 
-    // Save location of click
-    let locLat = e.lngLat.lat.toFixed(5);
-    let locLng = e.lngLat.lng.toFixed(5);
-
     // Zoom to location
-    map.flyTo({ center: [locLng, locLat], zoom: 12 });
+    map.flyTo({ center: [e.lngLat.lng, e.lngLat.lat], zoom: 12 });
 });
