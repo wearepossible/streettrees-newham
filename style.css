@@ -109,6 +109,10 @@ select {
     text-align: center;
 }
 
+#cta {
+    display: none;
+}
+
 #legend {
     width: 90%;
     max-width: 300px;
